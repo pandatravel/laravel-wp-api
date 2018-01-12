@@ -2,6 +2,7 @@
 
 namespace Ammonkc\WpApi;
 
+use RuntimeException;
 use Vnn\WpApiClient\WpClient;
 
 /**
