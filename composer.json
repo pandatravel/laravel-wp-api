@@ -1,0 +1,41 @@
+{
+    "name": "ammonkc/laravel-wp-api",
+    "description": "A Laravel Client for Wordpress REST Api",
+    "type": "library",
+    "version": "1.0.0-dev",
+    "require": {
+        "laravel/framework": "5.5.*",
+        "guzzlehttp/guzzle": "^6.3",
+        "vnn/wordpress-rest-api-client": "^1.2.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.5",
+        "vlucas/phpdotenv": "^2.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ammon Casey"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ammonkc\\WpApi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ammonkc\\WpApi\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ammonkc\\WpApi\\WpApiServiceProvider"
+            ],
+            "aliases": {
+                "WpApi": "Ammonkc\\WpApi\\Facade"
+            }
+        }
+    }
+}
