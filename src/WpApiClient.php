@@ -32,7 +32,7 @@ class WpApiClient extends WpClient
             $class = 'Vnn\WpApiClient\Endpoint\\' . ucfirst($endpoint);
             if (class_exists($class)) {
                 $this->endPoints[$endpoint] = new $class($this);
-            } elseif ($endpoint == 'CustomPostType' && ! empty($args)) {
+            } elseif (ucfirst($endpoint) == 'CustomPostType' && ! empty($args)) {
                 $class = 'Ammonkc\WpApi\Endpoint\\' . ucfirst($endpoint);
                 $this->endPoints[$endpoint] = new $class($this, $args[0]);
             } else {
