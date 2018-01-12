@@ -10,4 +10,8 @@ return [
         'password'  => env('WP_PASSWORD'),
     ],
 
+    'guzzle_options' => [
+        'verify' => true,
+    ],
+
 ];
