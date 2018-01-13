@@ -2,15 +2,13 @@
 
 namespace Ammonkc\WpApi;
 
-use Illuminate\Support\Facades\Facade;
-
-class WpApi extends Facade
+class Facade extends \Illuminate\Support\Facades\Facade
 {
     /**
      * {@inheritDoc}
      */
     protected static function getFacadeAccessor()
     {
-        return 'wpapi';
+        return WpApi::class;
     }
 }
