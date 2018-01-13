@@ -31,7 +31,7 @@ class WpApiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(WpApi::class, function ($app) {
+        $this->app->singleton(WpApiClient::class, function ($app) {
             $base_url = $this->app['config']->get('wp-api.base_url');
             $auth     = $this->app['config']->get('wp-api.auth');
             $options  = $this->app['config']->get('wp-api.guzzle_options');
