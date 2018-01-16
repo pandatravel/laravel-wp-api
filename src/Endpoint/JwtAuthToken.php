@@ -15,6 +15,11 @@ use Vnn\WpApiClient\Endpoint\AbstractWpEndpoint;
 class JwtAuthToken extends AbstractWpEndpoint
 {
     /**
+     * @var WpApiClient
+     */
+    private $client;
+
+    /**
      * CustomPostType constructor.
      *
      * @param WpClient $client

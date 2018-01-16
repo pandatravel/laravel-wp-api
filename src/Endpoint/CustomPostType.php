@@ -13,6 +13,11 @@ use Vnn\WpApiClient\Endpoint\AbstractWpEndpoint;
 class CustomPostType extends AbstractWpEndpoint
 {
     /**
+     * @var WpApiClient
+     */
+    private $client;
+
+    /**
      * @var string
      */
     private $type;
