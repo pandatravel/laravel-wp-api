@@ -2,6 +2,9 @@
 
 namespace Ammonkc\WpApi\Endpoint;
 
+use Ammonkc\WpApi\WpApiClient;
+use GuzzleHttp\Psr7\Request;
+use RuntimeException;
 use Vnn\WpApiClient\Endpoint\AbstractWpEndpoint;
 
 /**
@@ -11,6 +14,16 @@ use Vnn\WpApiClient\Endpoint\AbstractWpEndpoint;
  */
 class JwtAuthToken extends AbstractWpEndpoint
 {
+    /**
+     * CustomPostType constructor.
+     *
+     * @param WpClient $client
+     */
+    public function __construct(WpApiClient $client)
+    {
+        parent::__construct($client);
+    }
+
     /**
      * {@inheritdoc}
      */
