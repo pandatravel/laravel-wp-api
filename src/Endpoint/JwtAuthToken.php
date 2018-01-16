@@ -26,7 +26,7 @@ class JwtAuthToken extends AbstractWpEndpoint
      */
     public function __construct(WpApiClient $client)
     {
-        parent::__construct($client);
+        $this->client = $client;
     }
 
     /**

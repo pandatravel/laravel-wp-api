@@ -30,7 +30,7 @@ class CustomPostType extends AbstractWpEndpoint
     public function __construct(WpApiClient $client, $type)
     {
         $this->type = $type;
-        parent::__construct($client);
+        $this->client = $client;
     }
 
 

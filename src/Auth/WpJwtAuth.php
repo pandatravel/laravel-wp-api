@@ -15,16 +15,6 @@ class WpJwtAuth implements AuthInterface
     /**
      * @var string
      */
-    private $username;
-
-    /**
-     * @var string
-     */
-    private $password;
-
-    /**
-     * @var string
-     */
     private $token;
 
     /**
@@ -32,10 +22,9 @@ class WpJwtAuth implements AuthInterface
      * @param string $username
      * @param string $password
      */
-    public function __construct($username, $password)
+    public function __construct($token)
     {
-        $this->username = $username;
-        $this->password = $password;
+        $this->token = $token;
     }
 
     /**
