@@ -51,7 +51,7 @@ class JwtAuthToken extends AbstractWpEndpoint
         if ($response->hasHeader('Content-Type')
             && substr($response->getHeader('Content-Type')[0], 0, 16) === 'application/json') {
             $resonseData = json_decode($response->getBody()->getContents(), true);
-            \Cookie::queue(cookie()->forever('pandaonline-token', $resonseData['token']));
+            \Cookie::queue(cookie()->forever('pandaonline_token', $resonseData['token']));
             return response($resonseData);
         }
 
