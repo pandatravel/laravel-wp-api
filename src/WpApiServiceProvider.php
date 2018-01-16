@@ -37,14 +37,15 @@ class WpApiServiceProvider extends ServiceProvider
             $auth     = $this->app['config']->get('wp-api.auth');
             $options  = $this->app['config']->get('wp-api.guzzle_options');
 
-            if ($auth['driver'] == 'token') {
-                $authDriver = new WpJwtAuth(\Cookie::get('pandaonline-token'));
-            } else {
-                $authDriver = new WpBasicAuth($auth['user'], $auth['password']);
-            }
-
             $client = new WpApiClient(new GuzzleAdapter(new Client($options)), $base_url);
-            $client->setCredentials($authDriver);
+
+            if ($auth['driver'] == 'token') {
+                if (\Cookie::get('pandaonline-token') !== null) {
+                    $client->setCredentials(new WpJwtAuth(\Cookie::get('pandaonline-token')));
+                }
+            } else {
+                $client->setCredentials(new WpBasicAuth($auth['user'], $auth['password']));
+            }
 
             return $client;
         });
