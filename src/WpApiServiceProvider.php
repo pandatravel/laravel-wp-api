@@ -45,10 +45,10 @@ class WpApiServiceProvider extends ServiceProvider
                 $client->setCredentials(new WpBasicAuth($auth['user'], $auth['password']));
             }
 
-            $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-
             return $client;
         });
+
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
     }
 
     /**
