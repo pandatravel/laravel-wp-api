@@ -13,11 +13,6 @@ use Vnn\WpApiClient\Endpoint\AbstractWpEndpoint;
 class CustomPostType extends AbstractWpEndpoint
 {
     /**
-     * @var WpApiClient
-     */
-    private $client;
-
-    /**
      * @var string
      */
     private $type;
@@ -30,7 +25,7 @@ class CustomPostType extends AbstractWpEndpoint
     public function __construct(WpApiClient $client, $type)
     {
         $this->type = $type;
-        $this->client = $client;
+        parent::__construct($client);
     }
 
 
