@@ -21,15 +21,6 @@ use Vnn\WpApiClient\WpClient;
  */
 class WpApiClient extends WpClient
 {
-
-    /**
-     * @param AuthInterface $auth
-     */
-    public function clearCredentials()
-    {
-        $this->credentials = null;
-    }
-
     /**
      * @param $endpoint
      * @param array $args

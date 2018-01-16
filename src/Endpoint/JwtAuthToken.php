@@ -46,7 +46,6 @@ class JwtAuthToken extends AbstractWpEndpoint
         $url = $this->getEndpoint();
 
         $request = new Request('POST', $url, ['Content-Type' => 'application/json'], json_encode($data));
-        $this->client->clearCredentials();
         $response = $this->client->send($request);
 
         if ($response->hasHeader('Content-Type')
