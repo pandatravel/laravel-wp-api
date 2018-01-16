@@ -10,6 +10,10 @@ return [
         'password'  => env('WP_PASSWORD'),
     ],
 
+    'auth_form' => 'settings.wp.login',
+
+    'login_redirect' => 'settings',
+
     'guzzle_options' => [
         'verify' => true,
     ],
