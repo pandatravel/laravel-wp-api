@@ -2,8 +2,10 @@
 
 namespace Ammonkc\WpApi;
 
+use Ammon\WpApi\Auth\WpJwtAuth;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
+use Vnn\WpApiClient\Auth\WpBasicAuth;
 use Vnn\WpApiClient\Http\GuzzleAdapter;
 
 class WpApiServiceProvider extends ServiceProvider
