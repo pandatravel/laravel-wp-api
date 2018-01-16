@@ -51,7 +51,8 @@ class JwtAuthToken extends AbstractWpEndpoint
         if ($response->hasHeader('Content-Type')
             && substr($response->getHeader('Content-Type')[0], 0, 16) === 'application/json') {
             $resonseData = json_decode($response->getBody()->getContents(), true);
-            return response($resonseData)->cookie(cookie()->forever('pandaonline-token', $resonseData['token']));
+            \Cookie::queue(cookie()->forever('pandaonline-token', $resonseData['token']));
+            return response($resonseData);
         }
 
         throw new RuntimeException('Unexpected response');
