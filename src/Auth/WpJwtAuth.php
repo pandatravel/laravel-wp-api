@@ -38,7 +38,15 @@ class WpJwtAuth implements AuthInterface
 
         return $request->withHeader(
             'Authorization',
-            'Bearer ' . $this->token
+            'Bearer ' . $this->decrypt($this->token)
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function decrypt($token)
+    {
+        return \Crypt::decrypt($token);
     }
 }
