@@ -32,6 +32,10 @@ class WpJwtAuth implements AuthInterface
      */
     public function addCredentials(RequestInterface $request)
     {
+        if (is_null($this->token)) {
+            return $request;
+        }
+
         return $request->withHeader(
             'Authorization',
             'Bearer ' . $this->token
