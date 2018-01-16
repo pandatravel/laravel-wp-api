@@ -5,7 +5,7 @@ return [
     'base_url' => env('WP_BASE_URL'),
 
     'auth' => [
-        'driver' => env('WP_AUTH_DRIVER', 'basic_auth'),
+        'driver' => env('WP_AUTH_DRIVER', 'basic'),
         'user'  => env('WP_USER'),
         'password'  => env('WP_PASSWORD'),
     ],

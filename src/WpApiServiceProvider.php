@@ -4,7 +4,6 @@ namespace Ammonkc\WpApi;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
-use Vnn\WpApiClient\Auth\WpBasicAuth;
 use Vnn\WpApiClient\Http\GuzzleAdapter;
 
 class WpApiServiceProvider extends ServiceProvider
@@ -36,8 +35,14 @@ class WpApiServiceProvider extends ServiceProvider
             $auth     = $this->app['config']->get('wp-api.auth');
             $options  = $this->app['config']->get('wp-api.guzzle_options');
 
+            if ($auth['driver'] == 'token') {
+                $authDriver = new WpJwtAuth(\Cookie::get('pandaonline-token'));
+            } else {
+                $authDriver = new WpBasicAuth($auth['user'], $auth['password']);
+            }
+
             $client = new WpApiClient(new GuzzleAdapter(new Client($options)), $base_url);
-            $client->setCredentials(new WpBasicAuth($auth['user'], $auth['password']));
+            $client->setCredentials($authDriver);
 
             return $client;
         });

@@ -23,6 +23,11 @@ class WpJwtAuth implements AuthInterface
     private $password;
 
     /**
+     * @var string
+     */
+    private $token;
+
+    /**
      * WpJwtAuth constructor.
      * @param string $username
      * @param string $password
@@ -40,7 +45,7 @@ class WpJwtAuth implements AuthInterface
     {
         return $request->withHeader(
             'Authorization',
-            'Basic ' . base64_encode($this->username . ':' . $this->password)
+            'Bearer ' . $this->token
         );
     }
 }
