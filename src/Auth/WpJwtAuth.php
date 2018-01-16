@@ -1,6 +1,6 @@
 <?php
 
-namespace Ammon\WpApi\Auth;
+namespace Ammonkc\WpApi\Auth;
 
 use Psr\Http\Message\RequestInterface;
 use Vnn\WpApiClient\Auth\AuthInterface;
