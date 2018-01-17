@@ -47,6 +47,6 @@ class WpJwtAuth implements AuthInterface
      */
     public function decrypt($token)
     {
-        return \Crypt::decrypt($token);
+        return decrypt($token);
     }
 }

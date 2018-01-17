@@ -25,6 +25,8 @@ class WpApiServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/config.php' => config_path('wp-api.php'),
         ]);
+
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'ammonkc/wp-api');
     }
 
     /**
