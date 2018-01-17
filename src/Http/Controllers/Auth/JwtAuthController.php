@@ -60,7 +60,7 @@ class JwtAuthController extends Controller
      */
     public function login(JwtAuthRequest $request)
     {
-        $wp->jwtAuthToken()->authenticate($request->validated());
+        $this->wp->jwtAuthToken()->authenticate($request->validated());
 
         return redirect($this->redirectPath());
     }
