@@ -64,6 +64,10 @@ class JwtAuthController extends Controller
     {
         $this->wp->jwtAuthToken()->authenticate($request->validated());
 
+        if ($request->ajax()) {
+            return ['redirect' => url($this->redirectPath()), 'message' => trans('settings.wpapi.operation.succeeded')];
+        }
+
         return redirect($this->redirectPath());
     }
 
