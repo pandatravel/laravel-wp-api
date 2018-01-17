@@ -66,11 +66,18 @@ class JwtAuthController extends Controller
      */
     public function login(JwtAuthRequest $request)
     {
-        $this->wp->jwtAuthToken()->authenticate($request->validated());
+        $response = $this->wp->jwtAuthToken()->authenticate($request->validated());
+
+        if (array_has($response, 'token')) {
+            $response['code'] = 'token';
+            $response['data'] = ['status' => '200'];
+        }
 
         if ($request->ajax()) {
-            return ['redirect' => url($this->redirectPath()), 'message' => trans('settings.wpapi.operation.succeeded')];
+            return ['redirect' => url($this->redirectPath()), 'message' => trans('ammonkc/wpapi::auth.jwt.' . $response['code'], $response)];
         }
+
+        session(['notifier' => ['type' => ($response['data']['status'] == '200' ? 'success' : 'danger'), 'message' => trans('ammonkc/wpapi::auth.jwt.' . $response['code'], $response)]]);
 
         return redirect($this->redirectPath());
     }
