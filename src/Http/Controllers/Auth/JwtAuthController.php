@@ -85,7 +85,7 @@ class JwtAuthController extends Controller
             return ['redirect' => url($this->redirectPath()), 'message' => trans('ammonkc/wp-api::auth.jwt.' . $body->code, (!property_exists($body, 'message')?[]:['message' => $body->message]))];
         }
 
-        session()->flash(['notifier' => ['type' => ($body->statusCode == '200' ? 'success' : 'danger'), 'message' => trans('ammonkc/wp-api::auth.jwt.' . $body->code, (!property_exists($body, 'message')?[]:['message' => $body->message]))]]);
+        session()->flash('notifier', ['type' => ($body->statusCode == '200' ? 'success' : 'danger'), 'message' => trans('ammonkc/wp-api::auth.jwt.' . $body->code, (!property_exists($body, 'message')?[]:['message' => $body->message]))]);
 
         return redirect($this->redirectPath());
     }
