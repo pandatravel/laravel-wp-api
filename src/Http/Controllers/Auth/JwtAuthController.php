@@ -56,7 +56,7 @@ class JwtAuthController extends Controller
     }
 
     /**
-     * Show the application's login form.
+     * Authenticate JwtAuthToken.
      *
      * @return \Illuminate\Http\Response
      */
@@ -69,6 +69,16 @@ class JwtAuthController extends Controller
         }
 
         return redirect($this->redirectPath());
+    }
+
+    /**
+     * Logout of the JwtAuth token
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logout()
+    {
+        return redirect($this->redirectPath())->withCookie(\Cookie::forget('pandaonline_token'));
     }
 
     /**
