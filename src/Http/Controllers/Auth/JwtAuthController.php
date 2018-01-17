@@ -50,7 +50,11 @@ class JwtAuthController extends Controller
      */
     public function showLoginForm()
     {
-        $valid = $this->wp->jwtAuthToken()->validate();
+        $valid = ['code' => 'jwt_no_token'];
+
+        if (! is_null(\Cookie::get('pandaonline_token'))) {
+            $valid = $this->wp->jwtAuthToken()->validate();
+        }
 
         return view(Config::get('auth_form', 'settings.wpapi.login'), ['valid' => $valid]);
     }
