@@ -62,11 +62,11 @@ class JwtAuthToken extends AbstractWpEndpoint
      * @param array $data
      * @return array
      */
-    public function validate(array $data)
+    public function validate()
     {
         $url = $this->getEndpoint() . '/validate';
 
-        $request = new Request('POST', $url, ['Content-Type' => 'application/json'], json_encode($data));
+        $request = new Request('POST', $url, ['Content-Type' => 'application/json']);
         $response = $this->client->send($request);
 
         if ($response->hasHeader('Content-Type')

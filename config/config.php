@@ -12,7 +12,7 @@ return [
 
     'auth_form' => 'settings.wpapi.login',
 
-    'login_redirect' => 'settings',
+    'login_redirect' => 'settings/wpapi/auth',
 
     'route_prefix' => 'settings',
 

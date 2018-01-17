@@ -50,7 +50,9 @@ class JwtAuthController extends Controller
      */
     public function showLoginForm()
     {
-        return view(Config::get('auth_form', 'settings.wpapi.login'));
+        $valid = $this->wp->jwtAuthToken()->validate();
+
+        return view(Config::get('auth_form', 'settings.wpapi.login'), ['valid' => $valid]);
     }
 
     /**
