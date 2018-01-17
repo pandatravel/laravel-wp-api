@@ -66,18 +66,26 @@ class JwtAuthController extends Controller
      */
     public function login(JwtAuthRequest $request)
     {
-        $response = $this->wp->jwtAuthToken()->authenticate($request->validated());
-
-        $body = json_decode($response->content());
-        if (property_exists($body, 'token')) {
-            $body->code = 'token';
+        try {
+            $response = $this->wp->jwtAuthToken()->authenticate($request->validated());
+            $body = json_decode($response->content());
+            if (property_exists($body, 'token')) {
+                $body->code = 'token';
+            }
+            $body->statusCode = $response->status();
+        } catch (ClientException $e) {
+            $response = $e->getResponse();
+            $body = json_decode($response->getBody()->getContents());
+            $code = explode(" ", $body->code);
+            $body->code = 'jwt_auth_' . $code[1];
+            $body->statusCode = $body->data->status;
         }
 
         if ($request->ajax()) {
             return ['redirect' => url($this->redirectPath()), 'message' => trans('ammonkc/wp-api::auth.jwt.' . $body->code, (!property_exists($body, 'message')?[]:['message' => $body->message]))];
         }
 
-        session(['notifier' => ['type' => ($response->status() == '200' ? 'success' : 'danger'), 'message' => trans('ammonkc/wp-api::auth.jwt.' . $body->code, (!property_exists($body, 'message')?[]:['message' => $body->message]))]]);
+        session(['notifier' => ['type' => ($body->statusCode == '200' ? 'success' : 'danger'), 'message' => trans('ammonkc/wp-api::auth.jwt.' . $body->code, (!property_exists($body, 'message')?[]:['message' => $body->message]))]]);
 
         return redirect($this->redirectPath());
     }
