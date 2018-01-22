@@ -42,7 +42,7 @@ class WpApiServiceProvider extends ServiceProvider
             $client = new WpApiClient(new GuzzleAdapter(new Client($options)), $base_url);
 
             if (in_array($auth['driver'], ['token', 'jwt', 'jwt_token'])) {
-                $client->setCredentials(new WpJwtAuth(\Cookie::get('pandaonline_token')));
+                $client->setCredentials(new WpJwtAuth(\Cookie::get('wpapi_jwt_token')));
             } else {
                 $client->setCredentials(new WpBasicAuth($auth['user'], $auth['password']));
             }

@@ -52,7 +52,7 @@ class JwtAuthController extends Controller
     {
         $valid = ['code' => 'jwt_no_token'];
 
-        if (! is_null(\Cookie::get('pandaonline_token'))) {
+        if (! is_null(\Cookie::get('wpapi_jwt_token'))) {
             $valid = $this->wp->jwtAuthToken()->validate();
         }
 
@@ -97,7 +97,7 @@ class JwtAuthController extends Controller
      */
     public function logout()
     {
-        return redirect($this->redirectPath())->withCookie(\Cookie::forget('pandaonline_token'));
+        return redirect($this->redirectPath())->withCookie(\Cookie::forget('wpapi_jwt_token'));
     }
 
     /**
