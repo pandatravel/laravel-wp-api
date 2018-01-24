@@ -9,6 +9,6 @@ class Facade extends \Illuminate\Support\Facades\Facade
      */
     protected static function getFacadeAccessor()
     {
-        return WpApi::class;
+        return WpApiClient::class;
     }
 }
