@@ -6,6 +6,8 @@ use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
+use Vnn\WpApiClient\Auth\AuthInterface;
+use Vnn\WpApiClient\Http\ClientInterface;
 use Vnn\WpApiClient\WpClient;
 
 /**
@@ -43,6 +45,33 @@ class WpApiClient extends WpClient
      * @var array
      */
     private $endPoints = [];
+
+    /**
+     * WpClient constructor.
+     * @param ClientInterface $httpClient
+     * @param string $wordpressUrl
+     */
+    public function __construct(ClientInterface $httpClient, $wordpressUrl = '')
+    {
+        $this->httpClient = $httpClient;
+        $this->wordpressUrl = $wordpressUrl;
+    }
+
+    /**
+     * @param $wordpressUrl
+     */
+    public function setWordpressUrl($wordpressUrl)
+    {
+        $this->wordpressUrl = $wordpressUrl;
+    }
+
+    /**
+     * @param AuthInterface $auth
+     */
+    public function setCredentials(AuthInterface $auth)
+    {
+        $this->credentials = $auth;
+    }
 
     /**
      * @param $endpoint
