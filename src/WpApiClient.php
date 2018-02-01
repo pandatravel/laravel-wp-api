@@ -3,6 +3,8 @@
 namespace Ammonkc\WpApi;
 
 use GuzzleHttp\Exception\ClientException;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 use Vnn\WpApiClient\WpClient;
 
