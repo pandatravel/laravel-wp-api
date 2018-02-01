@@ -2,6 +2,7 @@
 
 namespace Ammonkc\WpApi;
 
+use GuzzleHttp\Exception\ClientException;
 use RuntimeException;
 use Vnn\WpApiClient\WpClient;
 
@@ -47,5 +48,28 @@ class WpApiClient extends WpClient
         }
 
         return $this->endPoints[$endpoint];
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function send(RequestInterface $request)
+    {
+        if ($this->credentials) {
+            $request = $this->credentials->addCredentials($request);
+        }
+
+        $request = $request->withUri(
+            $this->httpClient->makeUri($this->wordpressUrl . $request->getUri())
+        );
+
+        try {
+            $response = $this->httpClient->send($request);
+        } catch (ClientException $e) {
+            return redirect($this->redirectPath())->withCookie(\Cookie::forget('wpapi_jwt_token'));
+        }
+
+        return $response;
     }
 }
