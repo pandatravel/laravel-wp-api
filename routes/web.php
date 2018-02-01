@@ -16,7 +16,7 @@ Route::middleware(['web',  'auth'])->group(function () {
         ->prefix(\Config::get('wp-api.route_prefix', '/'))
         ->group(function () {
             Route::get('wpapi/auth', 'JwtAuthController@showLoginForm')->name('ammonkc/wpapi::jwt-auth');
-            Route::post('wpapi/auth', 'JwtAuthController@login');
-            Route::get('wpapi/logout', 'JwtAuthController@logout');
+            Route::post('wpapi/auth', 'JwtAuthController@login')->name('ammonkc/wpapi::login');
+            Route::get('wpapi/logout', 'JwtAuthController@logout')->name('ammonkc/wpapi::logout');
         });
 });

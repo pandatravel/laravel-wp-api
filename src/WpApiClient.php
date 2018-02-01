@@ -25,6 +25,26 @@ use Vnn\WpApiClient\WpClient;
 class WpApiClient extends WpClient
 {
     /**
+     * @var ClientInterface
+     */
+    private $httpClient;
+
+    /**
+     * @var AuthInterface
+     */
+    private $credentials;
+
+    /**
+     * @var string
+     */
+    private $wordpressUrl;
+
+    /**
+     * @var array
+     */
+    private $endPoints = [];
+
+    /**
      * @param $endpoint
      * @param array $args
      * @return Endpoint\AbstractWpEndpoint
@@ -69,7 +89,7 @@ class WpApiClient extends WpClient
         try {
             $response = $this->httpClient->send($request);
         } catch (ClientException $e) {
-            return redirect($this->redirectPath())->withCookie(\Cookie::forget('wpapi_jwt_token'));
+            return redirect()->route('ammonkc/wpapi::login')->withCookie(\Cookie::forget('wpapi_jwt_token'));
         }
 
         return $response;
