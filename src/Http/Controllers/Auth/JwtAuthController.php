@@ -5,6 +5,7 @@ namespace Ammonkc\WpApi\Http\Controllers\Auth;
 use Ammonkc\WpApi\Http\Controllers\Controller;
 use Ammonkc\WpApi\Http\Requests\JwtAuthRequest;
 use Ammonkc\WpApi\WpApiClient;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Config;
 
 class JwtAuthController extends Controller
@@ -53,7 +54,11 @@ class JwtAuthController extends Controller
         $valid = ['code' => 'jwt_no_token'];
 
         if (! is_null(\Cookie::get('wpapi_jwt_token'))) {
-            $valid = $this->wp->jwtAuthToken()->validate();
+            try {
+                $valid = $this->wp->jwtAuthToken()->validate();
+            } catch (ClientException $e) {
+                \Cookie::queue(\Cookie::forget('wpapi_jwt_token'));
+            }
         }
 
         return view(Config::get('auth_form', 'settings.wpapi.login'), ['valid' => $valid]);
