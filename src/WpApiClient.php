@@ -118,7 +118,8 @@ class WpApiClient extends WpClient
         try {
             $response = $this->httpClient->send($request);
         } catch (ClientException $e) {
-            return redirect()->route('ammonkc/wpapi::login')->withCookie(\Cookie::forget('wpapi_jwt_token'));
+            \Cookie::queue(\Cookie::forget('wpapi_jwt_token'));
+            abort(403, 'Expired Token', ['Location' => \Config::get('wp-api.route_prefix') . '/wpapi/auth']);
         }
 
         return $response;
