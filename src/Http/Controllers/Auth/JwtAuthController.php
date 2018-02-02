@@ -57,7 +57,15 @@ class JwtAuthController extends Controller
             try {
                 $valid = $this->wp->jwtAuthToken()->validate();
             } catch (ClientException $e) {
+                $response = $e->getResponse();
+                $body = json_decode($response->getBody()->getContents());
+                $body->statusCode = $body->data->status;
+                $code = explode(" ", $body->code);
+                if (count($code) > 1) {
+                    $body->code = 'jwt_auth_' . $code[1];
+                }
                 \Cookie::queue(\Cookie::forget('wpapi_jwt_token'));
+                session()->flash('notifier', ['type' => 'danger', 'message' => trans('ammonkc/wp-api::auth.jwt.' . $body->code, (!property_exists($body, 'message')?[]:['message' => $body->message]))]);
             }
         }
 
@@ -81,9 +89,11 @@ class JwtAuthController extends Controller
         } catch (ClientException $e) {
             $response = $e->getResponse();
             $body = json_decode($response->getBody()->getContents());
-            $code = explode(" ", $body->code);
-            $body->code = 'jwt_auth_' . $code[1];
             $body->statusCode = $body->data->status;
+            $code = explode(" ", $body->code);
+            if (count($code) > 1) {
+                $body->code = 'jwt_auth_' . $code[1];
+            }
         }
 
         if ($request->ajax()) {

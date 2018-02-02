@@ -2,7 +2,6 @@
 
 namespace Ammonkc\WpApi;
 
-use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
@@ -115,12 +114,7 @@ class WpApiClient extends WpClient
             $this->httpClient->makeUri($this->wordpressUrl . $request->getUri())
         );
 
-        try {
-            $response = $this->httpClient->send($request);
-        } catch (ClientException $e) {
-            \Cookie::queue(\Cookie::forget('wpapi_jwt_token'));
-            abort(403, 'Expired Token', ['Location' => \Config::get('wp-api.route_prefix') . '/wpapi/auth']);
-        }
+        $response = $this->httpClient->send($request);
 
         return $response;
     }

@@ -8,6 +8,7 @@ return [
         'jwt_auth_valid_token' => 'API Token is Valid',
         'jwt_auth_failed' => 'Authentication Failed: :message',
         'jwt_auth_invalid_token' => 'Invalid Token: :message',
+        'jwt_auth_expired_token' => 'Invalid Token: :message',
     ],
 
 ];

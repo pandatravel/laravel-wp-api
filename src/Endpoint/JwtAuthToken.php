@@ -3,7 +3,6 @@
 namespace Ammonkc\WpApi\Endpoint;
 
 use Ammonkc\WpApi\WpApiClient;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use RuntimeException;
 use Vnn\WpApiClient\Endpoint\AbstractWpEndpoint;
@@ -44,13 +43,9 @@ class JwtAuthToken extends AbstractWpEndpoint
      */
     public function authenticate(array $data)
     {
-        try {
-            $url = $this->getEndpoint();
-            $request = new Request('POST', $url, ['Content-Type' => 'application/json'], json_encode($data));
-            $response = $this->client->send($request);
-        } catch (ClientException $e) {
-            return $response;
-        }
+        $url = $this->getEndpoint();
+        $request = new Request('POST', $url, ['Content-Type' => 'application/json'], json_encode($data));
+        $response = $this->client->send($request);
 
         if ($response->hasHeader('Content-Type')
             && substr($response->getHeader('Content-Type')[0], 0, 16) === 'application/json') {
