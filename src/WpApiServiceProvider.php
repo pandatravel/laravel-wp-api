@@ -38,11 +38,12 @@ class WpApiServiceProvider extends ServiceProvider
             $base_url = $app['config']->get('wp-api.base_url');
             $auth     = $app['config']->get('wp-api.auth');
             $options  = $app['config']->get('wp-api.guzzle_options');
+            $serialize = $app['config']->get('wp-api.serialize_cookie');
 
             $client = new WpApiClient(new GuzzleAdapter(new Client($options)), $base_url);
 
             if (in_array($auth['driver'], ['token', 'jwt', 'jwt_token'])) {
-                $client->setCredentials(new WpJwtAuth(\Cookie::get('wpapi_jwt_token')));
+                $client->setCredentials(new WpJwtAuth(\Cookie::get('wpapi_jwt_token'), $serialize));
             } else {
                 $client->setCredentials(new WpBasicAuth($auth['user'], $auth['password']));
             }

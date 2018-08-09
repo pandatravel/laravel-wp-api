@@ -18,13 +18,19 @@ class WpJwtAuth implements AuthInterface
     private $token;
 
     /**
+     * @var boolean
+     */
+    private $serialize;
+
+    /**
      * WpJwtAuth constructor.
      * @param string $username
      * @param string $password
      */
-    public function __construct($token)
+    public function __construct($token, $serialize = false)
     {
         $this->token = $token;
+        $this->serialize = $serialize;
     }
 
     /**
@@ -38,15 +44,19 @@ class WpJwtAuth implements AuthInterface
 
         return $request->withHeader(
             'Authorization',
-            'Bearer ' . $this->decrypt($this->token)
+            'Bearer ' . $this->decrypt($this->token, $this->serialize)
         );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function decrypt($token)
+    public function decrypt($token, $serialize)
     {
-        return decrypt($token);
+        if (is_null($serialize)) {
+            $serialize = false;
+        }
+
+        return decrypt($token, $serialize);
     }
 }

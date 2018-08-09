@@ -10,6 +10,8 @@ return [
         'password'  => env('WP_PASSWORD'),
     ],
 
+    'serialize_cookie' => false,
+
     'auth_form' => 'settings.wpapi.login',
 
     'login_redirect' => 'settings/wpapi/auth',
