@@ -16,17 +16,20 @@ trait CanPaginate
     /**
       * Add pagination to array or collection.
       *
-      * @param array|Collection      $items
+      * @param array|Collection      $params
       * @param int $perPage
       * @param int $page
       * @param array $options
       *
       * @return LengthAwarePaginator
       */
-    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    public function paginate(array $params, $perPage = 15, $page = null, $options = [])
     {
+        $params['per_page'] = $perPage;
+        $params['page'] = $page;
+        $items = $this->get(null, $params);
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+        return new LengthAwarePaginator($items, $items->count(), $perPage, $page, $options);
     }
 }
