@@ -12,6 +12,8 @@ use Vnn\WpApiClient\Endpoint\AbstractWpEndpoint;
  */
 class CustomPostType extends AbstractWpEndpoint
 {
+    use CanPaginate;
+
     /**
      * @var string
      */
