@@ -23,13 +23,10 @@ trait CanPaginate
       *
       * @return LengthAwarePaginator
       */
-    public function paginate(array $params, $perPage = 15, $page = null, $options = [])
+    public function paginate(array $items, $total, $perPage = 10, $page = null, $options = [])
     {
-        $params['per_page'] = $perPage;
-        $params['page'] = $page;
-        $items = $this->get(null, $params);
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
-        return new LengthAwarePaginator($items, $items->count(), $perPage, $page, $options);
+        return new LengthAwarePaginator($items, $total, $perPage, $page, $options);
     }
 }
