@@ -84,4 +84,27 @@ abstract class AbstractWpEndpoint
 
         throw new RuntimeException('Unexpected response');
     }
+
+    /**
+     * @param int $id
+     * @param array $params - parameters that can be passed to DELETE
+     *        e.g. for tags: https://developer.wordpress.org/rest-api/reference/tags/#arguments
+     * @return array
+     */
+    public function delete($id, array $params = null)
+    {
+        $uri = $this->getEndpoint();
+        $uri .= ('/' . $id);
+        $uri .= (is_null($params)?'': '?' . http_build_query($params));
+
+        $request = new Request('DELETE', $uri);
+        $response = $this->client->send($request);
+
+        if ($response->hasHeader('Content-Type')
+            && substr($response->getHeader('Content-Type')[0], 0, 16) === 'application/json') {
+            return json_decode($response->getBody()->getContents(), true);
+        }
+
+        throw new RuntimeException('Unexpected response');
+    }
 }
