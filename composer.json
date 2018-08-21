@@ -15,7 +15,9 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Ammon Casey"
+            "name": "Ammon Casey",
+            "email" : "acasey@panda-group.com",
+            "role" : "Lead Developer"
         }
     ],
     "autoload": {
