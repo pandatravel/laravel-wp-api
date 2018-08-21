@@ -36,7 +36,7 @@
                 "Ammonkc\\WpApi\\WpApiServiceProvider"
             ],
             "aliases": {
-                "WpApi": "Ammonkc\\WpApi\\Facade"
+                "WpApi": "Ammonkc\\WpApi\\Facades\\WpApi"
             }
         }
     }
