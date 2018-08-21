@@ -2,6 +2,7 @@
 
 namespace Ammonkc\WpApi;
 
+use Ammonkc\WpApi\Auth\WpJwtAuth;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 use Vnn\WpApiClient\Auth\WpBasicAuth;
@@ -24,6 +25,8 @@ class WpApiServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/config.php' => config_path('wp-api.php'),
         ]);
+
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'ammonkc/wp-api');
     }
 
     /**
@@ -32,15 +35,23 @@ class WpApiServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(WpApiClient::class, function ($app) {
-            $base_url = $this->app['config']->get('wp-api.base_url');
-            $auth     = $this->app['config']->get('wp-api.auth');
-            $options  = $this->app['config']->get('wp-api.guzzle_options');
+            $base_url = $app['config']->get('wp-api.base_url');
+            $auth     = $app['config']->get('wp-api.auth');
+            $options  = $app['config']->get('wp-api.guzzle_options');
+            $serialize = $app['config']->get('wp-api.serialize_cookie');
 
             $client = new WpApiClient(new GuzzleAdapter(new Client($options)), $base_url);
-            $client->setCredentials(new WpBasicAuth($auth['user'], $auth['password']));
+
+            if (in_array($auth['driver'], ['token', 'jwt', 'jwt_token'])) {
+                $client->setCredentials(new WpJwtAuth(\Cookie::get('wpapi_jwt_token'), $serialize));
+            } else {
+                $client->setCredentials(new WpBasicAuth($auth['user'], $auth['password']));
+            }
 
             return $client;
         });
+
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
     }
 
     /**

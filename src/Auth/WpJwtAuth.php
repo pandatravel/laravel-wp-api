@@ -1,6 +1,6 @@
 <?php
 
-namespace Ammon\WpApi\Auth;
+namespace Ammonkc\WpApi\Auth;
 
 use Psr\Http\Message\RequestInterface;
 use Vnn\WpApiClient\Auth\AuthInterface;
@@ -15,22 +15,22 @@ class WpJwtAuth implements AuthInterface
     /**
      * @var string
      */
-    private $username;
+    private $token;
 
     /**
-     * @var string
+     * @var boolean
      */
-    private $password;
+    private $serialize;
 
     /**
      * WpJwtAuth constructor.
      * @param string $username
      * @param string $password
      */
-    public function __construct($username, $password)
+    public function __construct($token, $serialize = false)
     {
-        $this->username = $username;
-        $this->password = $password;
+        $this->token = $token;
+        $this->serialize = $serialize;
     }
 
     /**
@@ -38,9 +38,25 @@ class WpJwtAuth implements AuthInterface
      */
     public function addCredentials(RequestInterface $request)
     {
+        if (is_null($this->token)) {
+            return $request;
+        }
+
         return $request->withHeader(
             'Authorization',
-            'Basic ' . base64_encode($this->username . ':' . $this->password)
+            'Bearer ' . $this->decrypt($this->token, $this->serialize)
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function decrypt($token, $serialize)
+    {
+        if (is_null($serialize)) {
+            $serialize = false;
+        }
+
+        return decrypt($token, $serialize);
     }
 }

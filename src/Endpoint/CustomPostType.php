@@ -3,7 +3,6 @@
 namespace Ammonkc\WpApi\Endpoint;
 
 use Ammonkc\WpApi\WpApiClient;
-use Vnn\WpApiClient\Endpoint\AbstractWpEndpoint;
 
 /**
  * Class CustomPostType
@@ -12,6 +11,7 @@ use Vnn\WpApiClient\Endpoint\AbstractWpEndpoint;
  */
 class CustomPostType extends AbstractWpEndpoint
 {
+
     /**
      * @var string
      */
