@@ -1,8 +1,11 @@
 <?php
 
-namespace Ammonkc\WpApi;
+namespace Ammonkc\WpApi\Facades;
 
-class Facade extends \Illuminate\Support\Facades\Facade
+use Ammonkc\WpApi\WpApiClient;
+use Illuminate\Support\Facades\Facade;
+
+class WpApi extends Facade
 {
     /**
      * {@inheritDoc}
