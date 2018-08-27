@@ -40,7 +40,7 @@ abstract class AbstractWpEndpoint
     {
         $uri = $this->getEndpoint();
         $uri .= (is_null($id)?'': '/' . $id);
-        $uri .= (is_null($params)?'': '?' . http_build_query($params));
+        $uri .= (is_null($params)?'': '?' . http_build_query(array_filter($params)));
 
         $request = new Request('GET', $uri);
         $response = $this->client->send($request);
@@ -95,7 +95,7 @@ abstract class AbstractWpEndpoint
     {
         $uri = $this->getEndpoint();
         $uri .= ('/' . $id);
-        $uri .= (is_null($params)?'': '?' . http_build_query($params));
+        $uri .= (is_null($params)?'': '?' . http_build_query(array_filter($params)));
 
         $request = new Request('DELETE', $uri);
         $response = $this->client->send($request);
