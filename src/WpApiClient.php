@@ -15,6 +15,8 @@ use Vnn\WpApiClient\WpClient;
  *
  * @method Endpoint\Categories categories()
  * @method Endpoint\Comments comments()
+ * @method Endpoint\CustomPostType customPostType()
+ * @method Endpoint\JwtAuthToken jwtAuthToken()
  * @method Endpoint\Media media()
  * @method Endpoint\Pages pages()
  * @method Endpoint\Posts posts()
