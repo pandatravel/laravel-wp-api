@@ -69,7 +69,7 @@ class JwtAuthController extends Controller
             }
         }
 
-        return view(Config::get('auth_form', 'settings.wpapi.login'), ['valid' => $valid]);
+        return view(Config::get('wp-api.auth_form', 'settings.wpapi.login'), ['valid' => $valid]);
     }
 
     /**

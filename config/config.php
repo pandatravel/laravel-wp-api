@@ -2,7 +2,7 @@
 
 return [
 
-    'base_url' => env('WP_BASE_URL'),
+    'base_url' => env('WP_BASE_URL', 'https://www.pandaonline.com'),
 
     'auth' => [
         'driver' => env('WP_AUTH_DRIVER', 'basic'),
@@ -19,7 +19,9 @@ return [
     'route_prefix' => 'settings',
 
     'guzzle_options' => [
-        'verify' => true,
+        'verify' => env('WP_API_VERIFY', true),
     ],
+
+    'wp_parent_category' => env('WP_PARENT_CATEGORY'),
 
 ];
