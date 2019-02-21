@@ -1,3 +1,7 @@
+## 0.2.5
+- Laravel 5.8 support
+- Update config
+
 ## 0.2.4
 - Added @method tags for callable endpoint classes
 
