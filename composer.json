@@ -4,7 +4,7 @@
     "type": "library",
     "version": "0.2.4",
     "require": {
-        "illuminate/support": "~5.3.0|~5.4.0|~5.5.0|~5.6.0|~5.7.0",
+        "illuminate/support": "~5.3.0|~5.4.0|~5.5.0|~5.6.0|~5.7.0|~5.8.0",
         "guzzlehttp/guzzle": "^6.3",
         "vnn/wordpress-rest-api-client": "^1.2.0"
     },
