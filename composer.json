@@ -1,8 +1,23 @@
 {
     "name": "ammonkc/laravel-wp-api",
     "description": "A Laravel Client for Wordpress REST Api",
-    "type": "library",
     "version": "0.2.5",
+    "keywords": [
+        "ammonkc",
+        "laravel-wp-api",
+        "laravel",
+        "wordpress-rest-api"
+    ],
+    "homepage": "https://github.com/ammonkc/laravel-wp-api",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Ammon Casey",
+            "email" : "ammon@caseyohana.com",
+            "role" : "Lead Developer"
+        }
+    ],
     "require": {
         "illuminate/support": "~5.3.0|~5.4.0|~5.5.0|~5.6.0|~5.7.0|~5.8.0",
         "guzzlehttp/guzzle": "^6.3",
@@ -12,14 +27,6 @@
         "orchestra/testbench": "^3.5",
         "vlucas/phpdotenv": "^2.4"
     },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Ammon Casey",
-            "email" : "ammon@caseyohana.com",
-            "role" : "Lead Developer"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "Ammonkc\\WpApi\\": "src/"
